@@ -13,13 +13,7 @@
 <meta name="twitter:description" content="Building autonomous systems at the intersection of AI, robotics, and hardware. IBDP Year 2, GIIS Singapore.">
 <title>Siddharth Bansal — EECS Portfolio</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231d1d1f'/><text x='50%25' y='50%25' dy='.35em' text-anchor='middle' font-family='-apple-system,sans-serif' font-weight='700' font-size='13' fill='%23818cf8'>SB</text></svg>">
-<script src="./style.js"></script>
-</head>
-<body>
-<x-dc>
-
-<helmet>
-  <style>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 56px; }
     body { background: #fff; color: #1d1d1f; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', sans-serif; }
@@ -80,7 +74,8 @@
       section { padding-left: 20px !important; padding-right: 20px !important; }
     }
   </style>
-</helmet>
+</head>
+<body>
 
 <div id="scroll-progress"></div>
 
@@ -125,13 +120,11 @@
 </section>
 
 <!-- ═══ BIO ═══ -->
-<sc-if value="{{ showBio }}" hint-placeholder-val="{{ true }}">
-  <section style="padding:100px 32px; background:#fff; text-align:center;">
+<section style="padding:100px 32px; background:#fff; text-align:center;">
     <div class="aos" style="max-width:640px; margin:0 auto;">
       <p style="font-size:20px; color:#1d1d1f; line-height:1.7; font-weight:400; letter-spacing:-0.2px; text-wrap:pretty;">I started building with Lego at 6 and ended up building a 12-legged robot — less about choosing projects and more about gradually pushing what I could make. Now in Year 2 of the IB Diploma at GIIS Singapore, 40/42 in Year 1, applying to EECS and Computer Engineering programs across the US, UK, Singapore, and Europe.</p>
     </div>
   </section>
-</sc-if>
 
 <!-- ═══ EDUCATION ═══ -->
 <section id="education" style="padding:100px 32px; background:#f5f5f7;">
@@ -373,7 +366,6 @@
     </div>
 
     <!-- OTHER PROJECTS -->
-    <sc-if value="{{ showOtherProjects }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top:52px;">
         <h3 style="font-size:20px; font-weight:600; color:#1d1d1f; margin-bottom:14px; letter-spacing:-0.3px;">Other Projects</h3>
         <div style="background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
@@ -417,7 +409,6 @@
           </a>
         </div>
       </div>
-    </sc-if>
   </div>
 </section>
 
@@ -896,6 +887,15 @@ function closeModal() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+// style-hover attribute processor (replaces dc-runtime hover handling)
+document.querySelectorAll('[style-hover]').forEach(el => {
+  const base = el.getAttribute('style') || '';
+  const hover = el.getAttribute('style-hover') || '';
+  el.addEventListener('mouseenter', () => el.setAttribute('style', base + '; ' + hover));
+  el.addEventListener('mouseleave', () => el.setAttribute('style', base));
+  el.removeAttribute('style-hover');
+});
+
 // Scroll progress bar
 window.addEventListener('scroll', () => {
   const el = document.getElementById('scroll-progress');
@@ -920,34 +920,6 @@ const navObserver = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '-20% 0px -70% 0px' });
 sections.forEach(s => navObserver.observe(s));
-</script>
-
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
-  &quot;showBio&quot;: {
-    &quot;editor&quot;: &quot;boolean&quot;,
-    &quot;default&quot;: true,
-    &quot;tsType&quot;: &quot;boolean&quot;
-  },
-  &quot;showOtherProjects&quot;: {
-    &quot;editor&quot;: &quot;boolean&quot;,
-    &quot;default&quot;: true,
-    &quot;tsType&quot;: &quot;boolean&quot;
-  }
-}">
-
-class Component extends DCLogic {
-  renderVals() {
-    const showBio = this.props.showBio ?? true;
-    const showOtherProjects = this.props.showOtherProjects ?? true;
-
-    return {
-      showBio,
-      showOtherProjects,
-    };
-  }
-}
-
 </script>
 </body>
 </html>
