@@ -1510,4 +1510,4 @@
     console.error("[dc] failed to load React or boot:", err);
     throw err;
   });
-})();
+})(); 
